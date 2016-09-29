@@ -18,13 +18,23 @@ from django.contrib import admin
 
 from django.conf.urls import url, include
 from django.contrib import admin
-from .view import schema_view
-from user.views import user_page
+from rest_framework import routers
+from Django_license import views
+#from .views import schema_view
+
+from user.views import StbViewSet, PhysicalViewSet, searchStbChAuthorityViewSet
+
+router = routers.DefaultRouter()
+router.register(r'users', views.UserViewSet)
+router.register(r'groups', views.GroupViewSet)
+router.register(r'stbs', StbViewSet)
+router.register(r'phystbs', PhysicalViewSet)
+router.register(r'authority', searchStbChAuthorityViewSet)
 
 urlpatterns = [
     url(r'^admin/', include(admin.site.urls)),
-    url(r'^rest-api/', include('rest_framework.urls')),
-    url(r'^rest-swagger/', schema_view),
-
-    url(r'^user/', user_page)
+    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    url(r'^rest-swagger/', views.schema_view),
+    url(r'^', include(router.urls)),
+    #url(r'^user/', user_page)
 ]

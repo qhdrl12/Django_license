@@ -43,7 +43,7 @@ INSTALLED_APPS = [
     # REST FRAMEWORK SWAGGER
     'rest_framework_swagger',
 
-    #User
+    #STB User
     'user'
 ]
 
@@ -110,6 +110,10 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+REST_FRAMEWORK = {
+    'DEFAULT_PAGINATION_CLASS': 'Django_license.custom_pagination.CustomPagination',
+    'PAGE_SIZE': 10
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.10/topics/i18n/

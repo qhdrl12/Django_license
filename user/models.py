@@ -1,16 +1,16 @@
 from django.db import models
 
-# Create your models here.
+class Stb(models.Model):
+    class Meta:
+        db_table = 'STB'
 
-class User(models.Model):
-
-    stb_id = models.CharField(max_length=60)
-    mac_addr = models.CharField(max_length=30)
+    stb_id = models.CharField(max_length=60, primary_key=True)
     iptv_status_code = models.CharField(max_length=10)
 
-    @classmethod
-    def create(cls, stb_id, mac_addr, iptv_status_code):
-         user = cls(stb_id=stb_id
-                    , mac_addr=mac_addr
-                    , iptv_status_code=iptv_status_code)
-         return user
+class PhysicalStb(models.Model):
+    class Meta:
+        db_table = 'PHYSICAL_STB'
+
+    stb = models.ForeignKey(Stb, related_name='stb')
+    mac_address = models.CharField(max_length=20, primary_key=True)
+
